@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言这个是网易Java高级工程师交流②微信群的问题收集，写这篇博客主要是为了方便自己记忆和总结。如有侵权，请联系作者尽快删除。 2018-11-09Aredis 官方推荐用 redisson实现分布式锁 A我们的项目就是我们的真实案例，是脱敏之后的 2018-11-10Q分线程执行的顺序按有序执行的么 A 代码中，start方法的调用顺序，不代表线程的执行顺序，  Q课上的例子，把锁加在Order">
+<meta name="keywords" content="问题收集">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网易Java高级工程师交流②微信群问题收集">
+<meta property="og:url" content="http://yoursite.com/2018/12/02/网易Java高级工程师交流②微信群问题收集/index.html">
+<meta property="og:site_name" content="EdwardDrew">
+<meta property="og:description" content="前言这个是网易Java高级工程师交流②微信群的问题收集，写这篇博客主要是为了方便自己记忆和总结。如有侵权，请联系作者尽快删除。 2018-11-09Aredis 官方推荐用 redisson实现分布式锁 A我们的项目就是我们的真实案例，是脱敏之后的 2018-11-10Q分线程执行的顺序按有序执行的么 A 代码中，start方法的调用顺序，不代表线程的执行顺序，  Q课上的例子，把锁加在Order">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/15182918-584cc23d4b7cd7cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-15T01:48:22.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网易Java高级工程师交流②微信群问题收集">
+<meta name="twitter:description" content="前言这个是网易Java高级工程师交流②微信群的问题收集，写这篇博客主要是为了方便自己记忆和总结。如有侵权，请联系作者尽快删除。 2018-11-09Aredis 官方推荐用 redisson实现分布式锁 A我们的项目就是我们的真实案例，是脱敏之后的 2018-11-10Q分线程执行的顺序按有序执行的么 A 代码中，start方法的调用顺序，不代表线程的执行顺序，  Q课上的例子，把锁加在Order">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/15182918-584cc23d4b7cd7cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="EdwardDrew" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/02/网易Java高级工程师交流②微信群问题收集/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>网易Java高级工程师交流②微信群问题收集 | EdwardDrew</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/EdwardDrew"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EdwardDrew</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">贵有恒，无需三更眠五更起；最无益，莫过一日曝十日寒</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-music">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/music/" rel="section"><i class="menu-item-icon fa fa-fw fa-music"></i> <br>音乐</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/网易Java高级工程师交流②微信群问题收集/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="EdwardDrew">
+      <meta itemprop="description" content="与其更好，不如不同">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EdwardDrew">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网易Java高级工程师交流②微信群问题收集
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-02 15:43:15" itemprop="dateCreated datePublished" datetime="2018-12-02T15:43:15+08:00">2018-12-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-15 09:48:22" itemprop="dateModified" datetime="2018-12-15T09:48:22+08:00">2018-12-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Java高级开发工程师直播公开课/" itemprop="url" rel="index"><span itemprop="name">Java高级开发工程师直播公开课</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个是网易Java高级工程师交流②微信群的问题收集，写这篇博客主要是为了方便自己记忆和总结。如有侵权，请联系作者尽快删除。</p>
+<h1 id="2018-11-09"><a href="#2018-11-09" class="headerlink" title="2018-11-09"></a>2018-11-09</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>redis 官方推荐用 redisson实现分布式锁</p>
+<h2 id="A-1"><a href="#A-1" class="headerlink" title="A"></a>A</h2><p>我们的项目就是我们的真实案例，是脱敏之后的</p>
+<h1 id="2018-11-10"><a href="#2018-11-10" class="headerlink" title="2018-11-10"></a>2018-11-10</h1><h2 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h2><p>分线程执行的顺序按有序执行的么</p>
+<h3 id="A-2"><a href="#A-2" class="headerlink" title="A"></a>A</h3><ul>
+<li>代码中，start方法的调用顺序，不代表线程的执行顺序，</li>
+</ul>
+<h2 id="Q-1"><a href="#Q-1" class="headerlink" title="Q"></a>Q</h2><p>课上的例子，把锁加在OrderCodeGenerator是不是就不用分布式锁了？<br><img src="https://upload-images.jianshu.io/upload_images/15182918-584cc23d4b7cd7cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="A-3"><a href="#A-3" class="headerlink" title="A"></a>A</h3><ul>
+<li>ordercode订单号生成的系统服务  这个，单台机器扛不住压力，肯定是集群的。所以，你这把锁 加了也没用。</li>
+<li>那么集群的OrderCodeGenerator又是如何产生全局自增id的，Server间如何同步的。分布式id是不是做不到sequential，只能做到uuid</li>
+<li>ID生成策略，有集群下保证唯一的方式。<br>昨晚的例子，主要是讲分布式锁。</li>
+</ul>
+<h2 id="Q-2"><a href="#Q-2" class="headerlink" title="Q"></a>Q</h2><p>秒杀都是先到先得吗</p>
+<h3 id="A-4"><a href="#A-4" class="headerlink" title="A"></a>A</h3><ul>
+<li><p> 不是先到先得，是系统处理到谁就是谁</p>
+</li>
+<li><p>[ ] 前面在课堂上，说给大家分享我的<strong>nginx最精简配置文件</strong>。需要的扣1。</p>
+</li>
+</ul>
+<h2 id="Q-3"><a href="#Q-3" class="headerlink" title="Q"></a>Q</h2><p>Java核心技术这本书好，还是偏程思想</p>
+<h3 id="A-5"><a href="#A-5" class="headerlink" title="A"></a>A</h3><ul>
+<li>先啃Java编程思想或者核心技术的前几章的基础，会比较好，不然一步一报错，更难受。<br>而且你去面试，他们都是问你为什么，而不是怎么用，然后当你知道为什么，你也能将知识串联起来，记得更牢</li>
+</ul>
+<h2 id="Q-4"><a href="#Q-4" class="headerlink" title="Q"></a>Q</h2><p>面试造飞机，工作拧螺丝</p>
+<h3 id="A-6"><a href="#A-6" class="headerlink" title="A"></a>A</h3><ul>
+<li>拧螺丝你也要知道规格和扭矩，别拧坏了。而且，让你进来，也是想你可以以后造飞船的，但不是进来进让你握住公司核心。</li>
+<li>基础不牢的人，写的代码，简单的代码也是很好玩的。。</li>
+</ul>
+<h2 id="Q-5"><a href="#Q-5" class="headerlink" title="Q"></a>Q</h2><p>请问一下群里有没有做过配置文件加密的呢</p>
+<h3 id="A-7"><a href="#A-7" class="headerlink" title="A"></a>A</h3><ul>
+<li>搜索Config.hcl ？</li>
+</ul>
+<h2 id="Q-6"><a href="#Q-6" class="headerlink" title="Q"></a>Q</h2><p>java反射重要么？工作中重要么</p>
+<h3 id="A-8"><a href="#A-8" class="headerlink" title="A"></a>A</h3><ul>
+<li>重要</li>
+<li>很多框架里面都依赖java的反射机制的阿</li>
+</ul>
+<h2 id="Q-7"><a href="#Q-7" class="headerlink" title="Q"></a>Q</h2><p>是不是工作的时候mapper之类的文件都是生成的不用自己写</p>
+<h3 id="A-9"><a href="#A-9" class="headerlink" title="A"></a>A</h3><ul>
+<li>都是代码生成器</li>
+<li>你们用rundeck嘛</li>
+<li>大佬自己搞 我们改改用的</li>
+</ul>
+<h2 id="Q-8"><a href="#Q-8" class="headerlink" title="Q"></a>Q</h2><p>30多岁好找工作吗</p>
+<h3 id="A-10"><a href="#A-10" class="headerlink" title="A"></a>A</h3><ul>
+<li>压力好大好大。我现在的困境是，大公司做不上领导，小公司不想去</li>
+<li>你想想，哪个行业不喜欢年轻力壮的。但是人就这么多，总归还是能干活就行。@Java0年julian 大公司，没机会，就努力积攒自己的能力。一有机会，逮住不放手。厚积薄发</li>
+<li>@Java0年julian   人为什么感到焦虑,因为对未来感到迷茫 . 根本原因是没有计划</li>
+<li>还有就是，信心不够</li>
+</ul>
+<h2 id="Q-9"><a href="#Q-9" class="headerlink" title="Q"></a>Q</h2><p>今晚了解了异步的分布式技术，那如果要求同步的，该怎么处理呢</p>
+<h2 id="Q-10"><a href="#Q-10" class="headerlink" title="Q"></a>Q</h2><p>这么贵是面授吗？</p>
+<h3 id="A-11"><a href="#A-11" class="headerlink" title="A"></a>A</h3><ul>
+<li>面授，你的三万起了</li>
+<li>如果是不付出就有收获程序员不都得两万起步的工资。学习是投资。</li>
+<li>通过深入学习，如果进入互联网大厂，一个月的薪水涨幅应该就会超过这个学费。</li>
+</ul>
+<h1 id="2018-11-17"><a href="#2018-11-17" class="headerlink" title="2018-11-17"></a>2018-11-17</h1><h2 id="A-12"><a href="#A-12" class="headerlink" title="A"></a>A</h2><p>人在世上，如果仅仅是为了自己孤零零的活着，那应该是可以潇洒<br>但如果想留下点什么，简直是要命。。</p>
+<h2 id="Q-11"><a href="#Q-11" class="headerlink" title="Q"></a>Q</h2><p>我很想问下啊，大家经常用redis来做个缓存，减少数据库的压力。那么redis怎么跟数据库之间的数据同步啊，常用的一个场景就是，我们查询数据库之前先去查redis，如果redis有就直接返回了，那怎么保证redis的数据跟数据库的一致而不至于返回了一个过时的数据呢</p>
+<h3 id="A-13"><a href="#A-13" class="headerlink" title="A"></a>A</h3><ul>
+<li>最终一致性了解一下</li>
+<li><a href="https://coolshell.cn/articles/17416.html" target="_blank" rel="noopener">关于缓存的问题看到一偏好文章</a></li>
+</ul>
+<h2 id="Q-12"><a href="#Q-12" class="headerlink" title="Q"></a>Q</h2><p>问下各位大佬  你们公司MQ用的是哪一个?<br>ActiveMQ or RabbitMQ </p>
+<h3 id="A-14"><a href="#A-14" class="headerlink" title="A"></a>A</h3><ul>
+<li>ActiveMQ</li>
+</ul>
+<h1 id="2018-11-19"><a href="#2018-11-19" class="headerlink" title="2018-11-19"></a>2018-11-19</h1><h2 id="A-15"><a href="#A-15" class="headerlink" title="A"></a>A</h2><ul>
+<li>使用JWT存在个问题，就是单用户可以多端多个token同时访问</li>
+<li>需求是只一端能登录，所以token还是要存起来</li>
+<li>在自己的系统里做好设置和判断就可以了，需求多开就允许多开，需求不允许就把老的token踢掉</li>
+</ul>
+<h1 id="2018-11-21"><a href="#2018-11-21" class="headerlink" title="2018-11-21"></a>2018-11-21</h1><h2 id="Q-13"><a href="#Q-13" class="headerlink" title="Q"></a>Q</h2><p>遇到薅羊毛的该怎么做</p>
+<h3 id="A-16"><a href="#A-16" class="headerlink" title="A"></a>A</h3><ul>
+<li>遇到薅羊毛的该怎么做</li>
+</ul>
+<h1 id="2018-11-22"><a href="#2018-11-22" class="headerlink" title="2018-11-22"></a>2018-11-22</h1><h2 id="Q-14"><a href="#Q-14" class="headerlink" title="Q"></a>Q</h2><p>java.security.NoSuchAlgorithmException: Cannot find any provider supporting AES/CBC/PKCS7Padding。各位大佬   我在本地测试 解密微信userinfo时 是成功的 , 但是一到测试服就报这个错误 </p>
+<h3 id="A-17"><a href="#A-17" class="headerlink" title="A"></a>A</h3><ul>
+<li>这是java出口安全机制的问题 最长128位  你换成256即可</li>
+<li>我是在做微信支付退款的时候 解析微信的密文出现这个情况的。@BEnny  修改jdk 的配置就好了</li>
+<li><a href="https://mp.weixin.qq.com/s/AwTjfUMVzZafknpTS9b59Q" target="_blank" rel="noopener">微信接口开发_退款结果通知API Java语言描述</a>。@BEnny 这个博客里面有解决办法 和 jar包的下载地址  你先玩吧 </li>
+<li>大兄弟  这个造成的原因一样的, 由于美国出口限制  jdk的长度需要我们自己设置</li>
+</ul>
+<h1 id="2018-11-24"><a href="#2018-11-24" class="headerlink" title="2018-11-24"></a>2018-11-24</h1><h2 id="Q-15"><a href="#Q-15" class="headerlink" title="Q"></a>Q</h2><p>mysql优化除了索引还有什么。。</p>
+<h3 id="A-18"><a href="#A-18" class="headerlink" title="A"></a>A</h3><ul>
+<li>sql语句本身的优化吧</li>
+<li>本质还是为了索引。避免全局扫描</li>
+<li>那天好像老师说了分库分表吧，这也算吧。更深层次的，那就去改mysql的源码去了</li>
+<li>这些不算了。很好奇面试问mysql优化怎么回答</li>
+<li>硬件，软件，设计。这个思路回答，还有一些配置，其次才是sql优化</li>
+<li>还要看具体什么场景，架构，业务等等</li>
+</ul>
+<h1 id="2018-11-28"><a href="#2018-11-28" class="headerlink" title="2018-11-28"></a>2018-11-28</h1><h2 id="Q-16"><a href="#Q-16" class="headerlink" title="Q"></a>Q</h2><p>请教个问题，有用mysql的小伙伴吗，如果一张表的物理主键很长，会影响到索引吗？<br>一般索引文件中会记录物理主键，记的应该是物理主键的引用地址吧，不是物理主键的值吧</p>
+<h3 id="A-19"><a href="#A-19" class="headerlink" title="A"></a>A</h3><ul>
+<li>你是说这个主键的值很长么。我记得建主键的一个原则就是字段要短吧，不能把大文本这样的建成主键</li>
+<li>mysql对索引字段长度有限制的，700多个字符还是多少吧</li>
+<li>不同版本索引长度限制不一样</li>
+<li>之前一直以为mysql中索引文件是独立的文件，里面如果存物理主键的话，那物理主键的长度肯定会影响到索引文件的大小，但后来看到数据和索引在同一个文件里，那索引里的物理主键就不应该再存一份物理主键的值吧，只要存引用地址就可以了，这样是不是物理主键的长度大小对索引就没什么影响了</li>
+<li>@南京-10-阿泰 对你那个问题，索引有2种，聚集索引是放在一个文件里面的，非聚集索引是分开放的。但是如果我们将一个长字段设置成索引的话，索引是方便查到这个位置，但是查到位置以后，要进行比较吧，长字段比较就慢了，所以我的理解是长字段不适合做索引</li>
+<li>楼上你说的长字段是索引字段，还是物理主见字段</li>
+<li>主键不是也会自动变成索引么？</li>
+<li>恩，如果是用主键的值去比较是会受到长度的影响，但主要存的是主键地址，不就不用比较了吗</li>
+</ul>
+<h1 id="2018-11-29"><a href="#2018-11-29" class="headerlink" title="2018-11-29"></a>2018-11-29</h1><h2 id="A-20"><a href="#A-20" class="headerlink" title="A"></a>A</h2><p>1.T4是什么，以及怎样的人能当腾讯T4？<br>腾讯的员工职业发展过程当中，有两条通道可以选一条L线就是Leader，组长、总监、总经理。还有一条线，就是专业线T（技术族）、P（产品族）、M（市场族）。<br>我个人看法，专业2级的核心关键词是胜任，3级的关键词是方法、4级的关键词是影响。5级和6级的关键词是啥我还真不知知道，但他们基本上都是技术VP或者是首席科学家般的存在，听老大说鹅厂曾经有过一位T6 孙国政，他是OCR（图片识别技术）的发明人。</p>
+<p>T4的技术专家一方面在自己的技术领域有着开创性的贡献，另一方面大多主导过公司级的重点技术项目，再者为公司培养了一批T3或者以上的技术骨干。 </p>
+<p>作者：贺嘉<br>链接：<a href="https://www.zhihu.com/question/29910703/answer/134468046" target="_blank" rel="noopener">https://www.zhihu.com/question/29910703/answer/134468046</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+<div>
+      
+        
+      
+</div>
+
+    
+
+    
+       
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="EdwardDrew 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="EdwardDrew 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/问题收集/" rel="tag"><i class="fa fa-tag"></i> 问题收集</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/29/设计模式之策略模式/" rel="next" title="设计模式之策略模式">
+                <i class="fa fa-chevron-left"></i> 设计模式之策略模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTY1NS8xODIwMQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="EdwardDrew">
+            
+              <p class="site-author-name" itemprop="name">EdwardDrew</p>
+              <p class="site-description motion-element" itemprop="description">与其更好，不如不同</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/EdwardDrew" title="GitHub &rarr; https://github.com/EdwardDrew" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2018-11-09"><span class="nav-number">2.</span> <span class="nav-text">2018-11-09</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A"><span class="nav-number">2.1.</span> <span class="nav-text">A</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-1"><span class="nav-number">2.2.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2018-11-10"><span class="nav-number">3.</span> <span class="nav-text">2018-11-10</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q"><span class="nav-number">3.1.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-2"><span class="nav-number">3.1.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-1"><span class="nav-number">3.2.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-3"><span class="nav-number">3.2.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-2"><span class="nav-number">3.3.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-4"><span class="nav-number">3.3.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-3"><span class="nav-number">3.4.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-5"><span class="nav-number">3.4.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-4"><span class="nav-number">3.5.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-6"><span class="nav-number">3.5.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-5"><span class="nav-number">3.6.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-7"><span class="nav-number">3.6.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-6"><span class="nav-number">3.7.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-8"><span class="nav-number">3.7.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-7"><span class="nav-number">3.8.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-9"><span class="nav-number">3.8.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-8"><span class="nav-number">3.9.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-10"><span class="nav-number">3.9.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-9"><span class="nav-number">3.10.</span> <span class="nav-text">Q</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-10"><span class="nav-number">3.11.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-11"><span class="nav-number">3.11.1.</span> <span class="nav-text">A</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2018-11-17"><span class="nav-number">4.</span> <span class="nav-text">2018-11-17</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-12"><span class="nav-number">4.1.</span> <span class="nav-text">A</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-11"><span class="nav-number">4.2.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-13"><span class="nav-number">4.2.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-12"><span class="nav-number">4.3.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-14"><span class="nav-number">4.3.1.</span> <span class="nav-text">A</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2018-11-19"><span class="nav-number">5.</span> <span class="nav-text">2018-11-19</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-15"><span class="nav-number">5.1.</span> <span class="nav-text">A</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2018-11-21"><span class="nav-number">6.</span> <span class="nav-text">2018-11-21</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-13"><span class="nav-number">6.1.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-16"><span class="nav-number">6.1.1.</span> <span class="nav-text">A</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2018-11-22"><span class="nav-number">7.</span> <span class="nav-text">2018-11-22</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-14"><span class="nav-number">7.1.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-17"><span class="nav-number">7.1.1.</span> <span class="nav-text">A</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2018-11-24"><span class="nav-number">8.</span> <span class="nav-text">2018-11-24</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-15"><span class="nav-number">8.1.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-18"><span class="nav-number">8.1.1.</span> <span class="nav-text">A</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2018-11-28"><span class="nav-number">9.</span> <span class="nav-text">2018-11-28</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-16"><span class="nav-number">9.1.</span> <span class="nav-text">Q</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-19"><span class="nav-number">9.1.1.</span> <span class="nav-text">A</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2018-11-29"><span class="nav-number">10.</span> <span class="nav-text">2018-11-29</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-20"><span class="nav-number">10.1.</span> <span class="nav-text">A</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">EdwardDrew</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">7k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">7 分钟</span>
+  
+</div>
+
+<!-- 
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.5.0</div>
+ -->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2018/12/02/网易Java高级工程师交流②微信群问题收集/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" color="0,0,255" opacity="0.7" zindex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</body>
+</html>
