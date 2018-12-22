@@ -425,6 +425,297 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xianhuali.gitee.io/2018/12/22/真小白-一步步教你用Python抓取微信好友分析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="EdwardDrew">
+      <meta itemprop="description" content="与其更好，不如不同">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EdwardDrew">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/22/真小白-一步步教你用Python抓取微信好友分析/" class="post-title-link" itemprop="https://xianhuali.gitee.io/index.html">真小白|一步步教你用Python抓取微信好友分析</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-22 14:16:10 / 修改时间：14:17:19" itemprop="dateCreated datePublished" datetime="2018-12-22T14:16:10+08:00">2018-12-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/22/真小白-一步步教你用Python抓取微信好友分析/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/12/22/真小白-一步步教你用Python抓取微信好友分析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/12/22/真小白-一步步教你用Python抓取微信好友分析/" class="leancloud_visitors" data-flag-title="真小白|一步步教你用Python抓取微信好友分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">2.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前段时间公司里有个同事发了张图片在群上，是他所有微信好友头像拼成的一张大图，我看着挺有意思，就想自己也搞一下，然后百度了下怎么抓取微信好友之类的……一搜全是用Python抓取的，之前就听说过Python爬虫，但是没怎么接触过Python，算是小白（<strong>真小白</strong>）。不过我不慌，好歹自己是计算机专业（而且现在做的是Java开发），语言的原理应该是想通的，所以就大概看了下Python的介绍和基础语法，然后又自己捣鼓了下用Python写个helloWord，嗯，感觉很简单呀！但是要我自己一步步去弄？不存在的</p>
+<p>搜了很多篇文章怎么抓取微信好友分析之类的，感觉没有一点Python基础还真地看不懂，自己又是一个嫌麻烦的人，最终Google了一篇比较适合小白用户操作的文章，下面会讲到。但是对于真小白（完全不懂Python的人来说还是有点难的），因为对于我们这种门外汉来说，我只是想操作软件那样简单操作几下就能得到我想要的结果而已，我不想浪费时间去了解什么Python什么安装环境什么原理，巴拉巴拉……所以就有了这篇博客，废话少说，下面进入正题</p>
+<blockquote>
+<p>注：本篇博客不讲原理（因为我也不懂，哈哈），只讲实现过程，原理请移步下方的<a href="#参考">参考</a></p>
+</blockquote>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>欲练神功，必……看效果<br>1：统计好友的性别<br><img src="https://upload-images.jianshu.io/upload_images/15182918-5fd6c32fd092f090.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python结果数据分析-性别统计.png"><br>看起来男女比例差不多啊</p>
+<p>2：统计好友的地域分布，并且可视化在地图上展示<br><img src="https://upload-images.jianshu.io/upload_images/15182918-f9fd9a17c736c725.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python结果数据分析-地区分析.png"><br>广东人最多，我系广东人</p>
+<p>3：将好友的昵称做成词云</p>
+<blockquote>
+<p>因为这个信息比较私人，这里就不展示。跟下面好友签名的词云分析显示效果差不多，用的一样技术</p>
+</blockquote>
+<p>4：统计好友个性签名中的高频词汇<br><img src="https://upload-images.jianshu.io/upload_images/15182918-63410eb93a5dc80d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python结果数据分析-签名词云.png"><br>中间最大的几个英文，class、span、emoji应该是一些特殊字符或表情显示不出来。出现比较多的词，比如努力、生活、自己、人生，出现次数越多字越大</p>
+<p>5：将所有好友的头像合并成一张大图</p>
+<blockquote>
+<p>本人没有获取好友的同意，头像算隐私了吧？所以打了马赛克（谁还没有一点小秘密呢？）</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/15182918-75e3d1dd56b624a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python结果数据分析-图片合成.png"><br>啊，我的眼睛……</p>
+<h2 id="安装Python环境"><a href="#安装Python环境" class="headerlink" title="安装Python环境"></a>安装Python环境</h2><p>1、打开Python官网，下载最新版Python3.7.1安装，如下图。</p>
+<blockquote>
+<p><strong>懒得去官网的点这里</strong><a href="https://www.python.org/ftp/python/3.7.1/python-3.7.1.exe" target="_blank" rel="noopener">直接下载链接</a></p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/15182918-63e59d5b1112b443.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python安装1.png"><br>2、 下载完之后双击python-3.7.1.exe，勾选<code>Add python.exe to Path</code>（是把Python的安装路径添加到系统环境变量的Path变量中，<strong>很重要</strong>。大神可忽略，小白必选），点击Install Now（默认安装到C盘，可以自己选择安装目录，由于我的C盘是固体250G，所以就默认安装），如下图<br><img src="https://upload-images.jianshu.io/upload_images/15182918-380f760cf0eb091f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python安装2.png"><br>3、安装完之后检查下，点击开始，输入cmd（或者win+R快捷键）打开命令行窗口，输入python，出现下图就说明安装成功。此时输入exit()可以离开python编译器。<br><img src="https://upload-images.jianshu.io/upload_images/15182918-cc4cd7b3d4f7ab5e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python安装3.png"></p>
+<h1 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h1><p>在cmd窗口下运行</p>
+<ul>
+<li>pip3 install pillow</li>
+</ul>
+<p>然后就开始安装，等到安装完成之后才可再次输入命令（耐心等，这一过程不要乱动，小白双手可离开键盘），如下图<br><img src="https://upload-images.jianshu.io/upload_images/15182918-5d90c07cb930d12a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python安装相关插件.png"></p>
+<p>类似的依次运行下面命令</p>
+<ul>
+<li>pip3 install pyecharts</li>
+<li>pip3 install itchat</li>
+<li>pip3 install jieba</li>
+<li>pip3 install echarts-china-provinces-pypkg</li>
+<li>pip3 install echarts-countries-pypkg</li>
+</ul>
+<h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><p>懂github的</p>
+<ul>
+<li><a href="https://github.com/EdwardDrew/wechat_friends" target="_blank" rel="noopener">github</a> </li>
+</ul>
+<p>真小白</p>
+<ul>
+<li><a href="https://pan.baidu.com/s/1Sa2WCV5jemTTPSx54PBjqA" target="_blank" rel="noopener">百度云</a></li>
+</ul>
+<p>下载之后放到一个地方，然后解压，如下图<br><img src="https://upload-images.jianshu.io/upload_images/15182918-f80d1dc25a750c9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python安装源码.png"></p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>准备好所有东西之后就可以正式开始抓取微信好友信息了</p>
+<h3 id="获取用户信息"><a href="#获取用户信息" class="headerlink" title="获取用户信息"></a>获取用户信息</h3><p>1、需要将get_user_info.py第70行的二胖，改成自己的名字（这里我改成自己的微信昵称：鲜花）。</p>
+<blockquote>
+<p>用什么软件打开修改？我用的是notepad++（百度下载就行），或者直接用文本text软件notepad.exe打开也行，不过格式不好看</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/15182918-071ae86ac7c4924d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python运行源码1.png"></p>
+<p>2、定位到源码根目录下，<code>cd /d F:\Projects\python\wechat_friends-master（替换成你自己的）</code>或者在源码根目录下按住Shift+鼠标右键，选择在此处打开命令窗口，如下图<br><img src="https://upload-images.jianshu.io/upload_images/15182918-9e414321b51e55c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python运行源码2.png"></p>
+<p>3、输入<code>python get_user_info.py</code>，（如果安装了多个python环境的输入<code>python3 get_user_info.py</code>）， 执行后会弹出微信网页版登录的二维码，用手机微信扫一扫并且同意登录即可（如果图片没弹出来，在源码根目录下找到QR.png，手动点击打开），如下图：<br><img src="https://upload-images.jianshu.io/upload_images/15182918-21202cf08656e152.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python运行2.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/15182918-a4b52de185c1ae6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python运行源码3.png"></p>
+<p>命令执行后，等待，出现下图说明已登录成功并获取到了好友的信息<br><img src="https://upload-images.jianshu.io/upload_images/15182918-f66217efd1b1a0b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python运行源码4.png"></p>
+<p>python get_user_info.py执行后</p>
+<ul>
+<li>会在data目录下生成friends.json （存放抓取到的好友信息，比如昵称、头像链接、个性签名等）</li>
+<li>会在images目录下存放所有好友的头像<br>如下图<br><img src="https://upload-images.jianshu.io/upload_images/15182918-4b6ee281406fd8a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python运行结果文件-好友信息.png"><br><img src="https://upload-images.jianshu.io/upload_images/15182918-81f3da99450c1294.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python运行结果文件-图片.png"></li>
+</ul>
+<p>到此，我们的好友数据拿到了，下面就是对数据进行可视化分析</p>
+<h2 id="数据可视化分析"><a href="#数据可视化分析" class="headerlink" title="数据可视化分析"></a>数据可视化分析</h2><p>在cmd命令窗口中按住Win+C键结束命令，输入<code>python analyse.py</code>，（如果安装了多个python环境的输入<code>python3 analyse.py</code>），数据处理过程需要点时间（等待吧），如下图<br><img src="https://upload-images.jianshu.io/upload_images/15182918-adcbe8b1ab8c35e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python运行源码5.png"><br>当出现如下图时说明处理完成了<br><img src="https://upload-images.jianshu.io/upload_images/15182918-69ded71a4be89b2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python运行源码6.png"></p>
+<p>python analyse.py 执行后会在analyse文件夹下生产合成后的图片以及可视化的文件，如下图<br><img src="https://upload-images.jianshu.io/upload_images/15182918-fe185a6170b96cc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Python运行结果文件-数据分析.png"></p>
+<p>至此，大功告成，去看看我们自己的好友分析吧，点开html文件即可用浏览器访问</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>周六早上捣鼓了下这个微信好友分析，顺便写了一篇博客，感想如下</p>
+<ul>
+<li>完事开头难，你去做了其实也就那样</li>
+<li>写详细的博客真心累（小白笑了，大神呵呵）</li>
+<li>感谢二胖（本篇微信好友分析源码的原作者，想详细了解的移步下方的<a href="#参考">参考</a>）</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://zhuanlan.zhihu.com/p/37621427" target="_blank" rel="noopener">分享一段代码-微信好友分析</a></p>
+<hr>
+<blockquote>
+<p>更多精彩文章请关注</p>
+<ul>
+<li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li>
+<li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li>
+<li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li>
+</ul>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+<div>
+  
+</div>
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xianhuali.gitee.io/2018/12/16/《-希望你认准自己的路，努力生活》推文思考/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -470,12 +761,24 @@
                 
               
 
-              <time title="创建时间：2018-12-16 13:48:43 / 修改时间：13:50:13" itemprop="dateCreated datePublished" datetime="2018-12-16T13:48:43+08:00">2018-12-16</time>
+              <time title="创建时间：2018-12-16 13:48:43" itemprop="dateCreated datePublished" datetime="2018-12-16T13:48:43+08:00">2018-12-16</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-22 14:17:35" itemprop="dateModified" datetime="2018-12-22T14:17:35+08:00">2018-12-22</time>
               
             
           </span>
@@ -656,223 +959,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xianhuali.gitee.io/2018/12/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="EdwardDrew">
-      <meta itemprop="description" content="与其更好，不如不同">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="EdwardDrew">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/12/15/hello-world/" class="post-title-link" itemprop="https://xianhuali.gitee.io/index.html">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-15 09:48:22" itemprop="dateCreated datePublished" datetime="2018-12-15T09:48:22+08:00">2018-12-15</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/15/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/12/15/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/12/15/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">430</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-<div>
-  
-</div>
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://xianhuali.gitee.io/2018/12/02/网易Java高级工程师交流②微信群问题收集/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -935,7 +1021,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-15 09:48:22" itemprop="dateModified" datetime="2018-12-15T09:48:22+08:00">2018-12-15</time>
+                <time title="修改时间：2018-12-22 14:19:50" itemprop="dateModified" datetime="2018-12-22T14:19:50+08:00">2018-12-22</time>
               
             
           </span>
@@ -1538,7 +1624,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-15 09:48:22" itemprop="dateModified" datetime="2018-12-15T09:48:22+08:00">2018-12-15</time>
+                <time title="修改时间：2018-12-22 14:18:20" itemprop="dateModified" datetime="2018-12-22T14:18:20+08:00">2018-12-22</time>
               
             
           </span>
@@ -1765,230 +1851,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://xianhuali.gitee.io/2018/11/26/你好，Hexo/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="EdwardDrew">
-      <meta itemprop="description" content="与其更好，不如不同">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="EdwardDrew">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/26/你好，Hexo/" class="post-title-link" itemprop="https://xianhuali.gitee.io/index.html">你好，Hexo</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-26 22:42:25" itemprop="dateCreated datePublished" datetime="2018-11-26T22:42:25+08:00">2018-11-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-15 09:48:22" itemprop="dateModified" datetime="2018-12-15T09:48:22+08:00">2018-12-15</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/11/26/你好，Hexo/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/11/26/你好，Hexo/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/11/26/你好，Hexo/" class="leancloud_visitors" data-flag-title="你好，Hexo">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">7</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第一篇blog"><a href="#第一篇blog" class="headerlink" title="第一篇blog"></a>第一篇blog</h1>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-<div>
-  
-</div>
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2034,7 +1896,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2046,6 +1908,8 @@
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
                     
+                    
+                      
                     
                       
                     
@@ -2086,7 +1950,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2163,7 +2031,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">8k</span>
+    <span title="站点总字数">10k</span>
   
 
   
@@ -2172,7 +2040,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">7 分钟</span>
+    <span title="站点阅读时长">9 分钟</span>
   
 </div>
 
