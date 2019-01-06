@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xianhuali.gitee.io/"/>
-  <updated>2019-01-06T03:58:07.392Z</updated>
+  <updated>2019-01-06T04:05:48.784Z</updated>
   <id>https://xianhuali.gitee.io/</id>
   
   <author>
@@ -15,6 +15,156 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JSE-1.1.6 线程封闭之ThreadLocal和栈封闭</title>
+    <link href="https://xianhuali.gitee.io/2019/01/06/JSE-1-1-6-%E7%BA%BF%E7%A8%8B%E5%B0%81%E9%97%AD%E4%B9%8BThreadLocal%E5%92%8C%E6%A0%88%E5%B0%81%E9%97%AD/"/>
+    <id>https://xianhuali.gitee.io/2019/01/06/JSE-1-1-6-线程封闭之ThreadLocal和栈封闭/</id>
+    <published>2019-01-06T04:04:55.000Z</published>
+    <updated>2019-01-06T04:05:48.784Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="【主题】"><a href="#【主题】" class="headerlink" title="【主题】"></a>【主题】</h1><p>线程封闭之ThreadLocal和栈封闭</p><h1 id="【信息】"><a href="#【信息】" class="headerlink" title="【信息】"></a>【信息】</h1><h2 id="线程封闭概念"><a href="#线程封闭概念" class="headerlink" title="线程封闭概念"></a>线程封闭概念</h2><p>数据都被封闭在各自的线程中，就不需要同步，这种通过将数据封闭在线程中而避免使用同步的技术称为线程封闭。</p><p>具体体现有：</p><ul><li>ThreadLocal</li><li>局部变量</li></ul><h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p><strong>是Java里一种特殊的变量</strong></p><p>它是一个线程级别的变量，每个线程都有一个ThreadLocal就是每个线程都拥有了自己独立的一个变量，竞争条件被彻底消除了，在并发模式下是绝对安全的变量。</p><p>==用法：== ThreadLocal<t> var = new ThreadLocal<t>();</t></t></p><p>会自动在每个线程上创建一个T的副本，副本之间彼此独立，互不影响。</p><p>可以用ThreadLocal存储一些参数，以便在线程中多个方法中使用，用来代替方法传参的做法。</p><p><strong>可以理解为，JVM维护了一个Map&lt;Thread, T&gt;，每个线程要用这个T的时候，用当前线程去Map里面取。仅作为一个概念理解</strong></p><h2 id="栈封闭"><a href="#栈封闭" class="headerlink" title="栈封闭"></a>栈封闭</h2><p><strong>局部变量</strong>的固有属性之一就是封闭在线程中。它们位于执行线程的栈中，其他线程无法访问这个栈。</p><h1 id="【思考】"><a href="#【思考】" class="headerlink" title="【思考】"></a>【思考】</h1><p>线程封闭还有其他方式吗？有哪些场景用？</p><h1 id="【行动-反馈】"><a href="#【行动-反馈】" class="headerlink" title="【行动/反馈】"></a>【行动/反馈】</h1><p>查下问题：<a href="https://blog.csdn.net/weixin_40773255/article/details/80380789" target="_blank" rel="noopener">我眼中的线程封闭</a><br>线程封闭有哪些实现方式？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.使用单线程。曲折的可以这么说。</span><br><span class="line"></span><br><span class="line">2.多线程环境下，如果能保证通过某种方式访问共享变量的时候是单线程的，也可以实现。</span><br><span class="line"></span><br><span class="line">3.Ad-hoc,我的理解是使用程序来保证这种封闭性，这种方式不好，不好写，不好维护。</span><br><span class="line"></span><br><span class="line">4.栈封闭，也就是使用局部变量，因为局部变量的特性是属于某个线程的，也就是说线程和线程间的局部变量是独立的。但要防止对象溢出，比如一个方法内对象被发布了，封闭性就被打破。</span><br><span class="line"></span><br><span class="line">5使用ThreadLocal。</span><br></pre></td></tr></table></figure></p><p>线程封闭的应用场景<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.swing的可视化组件和数据模型对象都不是线程安全的，swing通过将他们封闭到Swing的事件分发线程中来实现线程安全。</span><br><span class="line"></span><br><span class="line">2.jdbc的connection对象，在服务器应用中，会从连接池中获取jdbc对象，使用对象处理请求，用完后返还给连接池，由于大多数请求（比如servlet）一个请求过来是单线程的同步的方式处理，并且connection返回前连接池不会将该对象分配给其他线程，所以这种连接管理模式在处理请求时隐含的将Connection对象封闭在线程中。</span><br><span class="line"></span><br><span class="line">3.（程序控制的例子），如果能保证单线程写入volatile变量，就可以安全的在volatile变量上执行 读-改-写的非原子操作。</span><br><span class="line"></span><br><span class="line">4（ThreadLocal）spring?</span><br><span class="line"></span><br><span class="line">应用程序框架大量使用了ThreadLocal，J2EE容器将事务上下文与执行中的线程关联起来，当框架判断代码运行的当前是哪个事务时，只需要从这个ThreadLocal对象中读取事务上下文。这样做的好处可以避免运行的过程中需要传递事务上下文，使框架和代码耦合。</span><br><span class="line"></span><br><span class="line">5.Integer.toString()方法使用ThreadLocal对象来保存一个12字节大小的缓冲区，因为需要每次临时都创建这样一个临时缓冲区对象，对结果格式化，其实我觉的这种场景利用了ThreadLocal的线程隔离和Map存储数据的特性。</span><br></pre></td></tr></table></figure></p><h1 id="【钩子】"><a href="#【钩子】" class="headerlink" title="【钩子】"></a>【钩子】</h1><p>线程封闭 ThreadLocal</p><h1 id="【出处】"><a href="#【出处】" class="headerlink" title="【出处】"></a>【出处】</h1><p>Java高级开发工程师-线程封闭之ThreadLocal和栈封闭</p><h1 id="【时间】"><a href="#【时间】" class="headerlink" title="【时间】"></a>【时间】</h1><p>2018-12-27</p><hr><p>若涉及版权问题,请及时联系作者删除。</p><blockquote><p>更多精彩文章请关注</p><ul><li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li><li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li><li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;【主题】&quot;&gt;&lt;a href=&quot;#【主题】&quot; class=&quot;headerlink&quot; title=&quot;【主题】&quot;&gt;&lt;/a&gt;【主题】&lt;/h1&gt;&lt;p&gt;线程封闭之ThreadLocal和栈封闭&lt;/p&gt;
+&lt;h1 id=&quot;【信息】&quot;&gt;&lt;a href=&quot;#【信息】&quot; class=&quot;
+      
+    
+    </summary>
+    
+      <category term="Java高级开发工程师微专业" scheme="https://xianhuali.gitee.io/categories/Java%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BE%AE%E4%B8%93%E4%B8%9A/"/>
+    
+    
+      <category term="高性能编程专题" scheme="https://xianhuali.gitee.io/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B%E4%B8%93%E9%A2%98/"/>
+    
+      <category term="多线程并发编程" scheme="https://xianhuali.gitee.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="Java基础" scheme="https://xianhuali.gitee.io/tags/Java%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JSE-1.1.5 线程通信</title>
+    <link href="https://xianhuali.gitee.io/2019/01/06/JSE-1-1-5-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
+    <id>https://xianhuali.gitee.io/2019/01/06/JSE-1-1-5-线程通信/</id>
+    <published>2019-01-06T04:04:11.000Z</published>
+    <updated>2019-01-06T04:04:33.805Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="【主题】"><a href="#【主题】" class="headerlink" title="【主题】"></a>【主题】</h1><p>线程通信</p><h1 id="【信息】"><a href="#【信息】" class="headerlink" title="【信息】"></a>【信息】</h1><h2 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h2><p>要实现多个线程之间的协同，如：线程执行先后顺序、获取某个线程执行的结果等。</p><p>四类：</p><ul><li>文件共享</li><li>网络共享</li><li>共享变量</li><li><strong>jdk提供的线程协调API</strong>：细分为<del>suspend/resume</del>、wait/notify、park/unpark</li></ul><h2 id="线程协作-JDK-API"><a href="#线程协作-JDK-API" class="headerlink" title="线程协作-JDK API"></a>线程协作-JDK API</h2><p>多线程协作的典型场景是：生产者-消费者模型。（线程阻塞、线程唤醒）</p><p>买包子例子</p><h2 id="API-被弃用的suspend和resume"><a href="#API-被弃用的suspend和resume" class="headerlink" title="API-被弃用的suspend和resume"></a>API-被弃用的suspend和resume</h2><p>作用：调用suspend挂起目标线程，通过resume可以恢复线程执行。</p><p>被弃用的主要原因是，容易写出死锁的代码。所以用wait/notify和park/unpark机制对它进行替代。</p><h2 id="suspend和resume死锁示例"><a href="#suspend和resume死锁示例" class="headerlink" title="suspend和resume死锁示例"></a>suspend和resume死锁示例</h2><ul><li>1、同步代码中使用：suspend挂起之后并不会释放锁，故此容易写出死锁代码</li><li>2、suspend比resume后执行</li></ul><h2 id="wait-notify机制"><a href="#wait-notify机制" class="headerlink" title="wait/notify机制"></a>wait/notify机制</h2><p>这些方法只能由同一对象锁的持有者线程调用，也就是写在同步代码块里面，否则会抛出IllegalMonitorStateException异常。基于监视器实现的，必须写在同步代码块里。</p><p><strong>wait</strong>方法导致当前线程等待，加入该对象的等待集合中，并且放弃当前持有的对象锁。</p><p><strong>notify/notifyAll</strong>方法唤醒一个或所有正在等待这个对象锁的线程。</p><p>==注：== 虽然会wait自动解锁，但是对==顺序有要求==，如果在notify被调用之后，才开始wait方法的调用，线程会永远处于WAITING状态。</p><p>注意先后顺序，否则死锁代码</p><h2 id="park-unpark机制"><a href="#park-unpark机制" class="headerlink" title="park/unpark机制"></a>park/unpark机制</h2><p>线程调用park则等待“许可”，unpark方法为线程提供“许可（permit）”。</p><p><strong>不要求park和unpark方法的调用顺序。</strong></p><p>多次调用unpark之后，再调用park，线程会直接运行。但<strong>不会叠加</strong>，也就是说，连续多次调用park方法，第一次会拿到“许可”直接运行，后续调用会进入等待。</p><p>不会释放锁，不是基于监视器锁实现的，是基于线程的状态。</p><p><strong>同步代码</strong>，容易写出死锁代码</p><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul><li>1、suspend/resume对调用顺序有要求，也要开发自己注意锁的释放。这个被弃用的API， 容易死锁，也容易导致永久挂起。</li><li>2、wait/notify要求再同步关键字里面使用，免去了死锁的困扰，但是一定要先调用wait，再调用notify，否则永久等待了</li><li>3、park/unpark没有顺序要求，但是park并不会释放锁，所以在同步代码中使用要注意</li></ul><h2 id="伪唤醒"><a href="#伪唤醒" class="headerlink" title="伪唤醒"></a>伪唤醒</h2><p><strong>警告！之前代码中用if语句来判断，是否进入等待状态，是错误的！</strong> 官方建议应该在循环中检查等待条件，原因是处于等待状态的线程可能会收到<strong>错误警报和伪唤醒</strong>，如果不在循环中检查等待条件，程序就会在没有满足结束条件的情况下退出。</p><p>伪唤醒是指线程并非因为notify、notifyAll、unpark等api调用而唤醒，是更底层原因导致的。</p><h1 id="【思考】"><a href="#【思考】" class="headerlink" title="【思考】"></a>【思考】</h1><p>线程这种通信为什么要用？还有其他方式吗？</p><h1 id="【行动-反馈】"><a href="#【行动-反馈】" class="headerlink" title="【行动/反馈】"></a>【行动/反馈】</h1><p>查下问题：</p><ul><li>why？利用这些方法就不必再循环检测共享资源的状态，而是在需要的时候直接唤醒等待队列中的线程就可以了。这样不但节省了宝贵的CPU资源，也提高了程序的效率。</li><li>管道？</li></ul><h1 id="【钩子】"><a href="#【钩子】" class="headerlink" title="【钩子】"></a>【钩子】</h1><p>线程通信</p><h1 id="【出处】"><a href="#【出处】" class="headerlink" title="【出处】"></a>【出处】</h1><p>Java高级开发工程师-线程通信</p><h1 id="【时间】"><a href="#【时间】" class="headerlink" title="【时间】"></a>【时间】</h1><p>2018-12-26</p><hr><p>若涉及版权问题,请及时联系作者删除。</p><blockquote><p>更多精彩文章请关注</p><ul><li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li><li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li><li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;【主题】&quot;&gt;&lt;a href=&quot;#【主题】&quot; class=&quot;headerlink&quot; title=&quot;【主题】&quot;&gt;&lt;/a&gt;【主题】&lt;/h1&gt;&lt;p&gt;线程通信&lt;/p&gt;
+&lt;h1 id=&quot;【信息】&quot;&gt;&lt;a href=&quot;#【信息】&quot; class=&quot;headerlink&quot; titl
+      
+    
+    </summary>
+    
+      <category term="Java高级开发工程师微专业" scheme="https://xianhuali.gitee.io/categories/Java%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BE%AE%E4%B8%93%E4%B8%9A/"/>
+    
+    
+      <category term="高性能编程专题" scheme="https://xianhuali.gitee.io/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B%E4%B8%93%E9%A2%98/"/>
+    
+      <category term="多线程并发编程" scheme="https://xianhuali.gitee.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="Java基础" scheme="https://xianhuali.gitee.io/tags/Java%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JSE-1.1.4 内存屏障和CPU缓存</title>
+    <link href="https://xianhuali.gitee.io/2019/01/06/JSE-1-1-4-%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C%E5%92%8CCPU%E7%BC%93%E5%AD%98/"/>
+    <id>https://xianhuali.gitee.io/2019/01/06/JSE-1-1-4-内存屏障和CPU缓存/</id>
+    <published>2019-01-06T04:03:16.000Z</published>
+    <updated>2019-01-06T04:03:45.297Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="【主题】"><a href="#【主题】" class="headerlink" title="【主题】"></a>【主题】</h1><p>内存屏障和CPU缓存</p><h1 id="【信息】"><a href="#【信息】" class="headerlink" title="【信息】"></a>【信息】</h1><h2 id="CPU性能优化手段-缓存"><a href="#CPU性能优化手段-缓存" class="headerlink" title="CPU性能优化手段-缓存"></a>CPU性能优化手段-缓存</h2><p>为了提高程序运行的性能</p><p>例如：CPU高速缓存。尽可能地避免处理器访问主内存的时间开销，处理器大多会利用缓存以提高性能。</p><p>CPU有三级缓存：L1-L3</p><h2 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a>多级缓存</h2><p>L1 Cache（一级缓存）：CPU第一层高速缓存，分为数据缓存和指令缓存。一般容量在32-4096KB。</p><p>L2：由于L1高速缓存容量的限制，为了提高CPU的运算速度，在CPU外部放置一高速存储器，即二级缓存。</p><p>L3：现在都是内置的。可以进一步降低内存延迟，同时提升大数据量计算时处理器的性能。具有较大L3缓存的处理器提供更有效的文件系统缓存行为及较短消息和处理器队列长度。<strong>一般多核共享一个L3缓存</strong>！</p><p>CPU读数据时，读取顺序：L1-L2-L3-内存-外存储器</p><h2 id="缓存同步协议"><a href="#缓存同步协议" class="headerlink" title="缓存同步协议"></a>缓存同步协议</h2><p>多CPU读取同样的数据进行缓存，进行不同运算之后，最终写入主内存以哪个CPU为准？</p><p><strong>MESI协议</strong>，规定每条缓存有一条状态位，4个状态：</p><ul><li>修改态（Modified）：此cache行已被修改过（脏行），内容已不同于主存，为此cache专有。</li><li>专有态（Exclusive）：此cache行内存同于主内存，但不出现与其他cache中。</li><li>共享态（Shared）：此cache行内容同于主内存，但也出现于其他cache中。</li><li>无效态（Invalid）：此cache行内容无效（空行）</li></ul><p>多处理器时，单个CPU对缓存中数据进行了改动，需要通知其他CPU。意味着，CPU处理要控制自己的读写操作，还要监听其他CPU发出的通知，从而保证<strong>最终一致</strong>。</p><h2 id="CPU性能优化手段-运行时指令重排"><a href="#CPU性能优化手段-运行时指令重排" class="headerlink" title="CPU性能优化手段-运行时指令重排"></a>CPU性能优化手段-运行时指令重排</h2><p>指令重排的场景：当CPU<strong>写缓存时</strong>发现缓存区块正被其他CPU占用，为了提高CPU处理性能，可能将后面的<strong>读缓存命令优先执行</strong>。</p><p>并非随便重排，需要遵守<strong>as-if-serial语义</strong></p><blockquote><p>不管怎么重排序（编译器和处理器为了提高并行度），（单线程）程序的执行结果不能被改变。编译器，runtime和处理器都必须遵守as-if-serial语义。</p></blockquote><p>编译器和处理器<strong>不会对存在数据依赖关系的操作做重排序</strong>。</p><h2 id="两个问题"><a href="#两个问题" class="headerlink" title="两个问题"></a>两个问题</h2><p>1、CPU高速缓存下有一个问题：缓存中的数据与主内存的数据并不是实时同步的，各CPU（或CPU核心）间缓存的数据也不是实时同步，<strong>在同一个时间点，各CPU所看到同一内存地址的数据的值可能是不一致的。</strong></p><p>2、CPU执行指令重排序优化有一个问题：虽然遵守了as-if-serial语义，单仅在单CPU自己执行的情况下能保证结果正确。多核多线程中，指令逻辑无法分辨因果关联，可能出现<strong>乱序执行</strong>，导致程序运行结果错误。</p><h2 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h2><p><strong>写内存屏障（Store Memory Barrier）</strong>：在指令后插入Store Barrier，能让写入缓存中的最新数据更新写入主内存，让其他线程可见。</p><ul><li>强制写入主内存，这种显示调用，CPU就不会因为性能考虑而去对指令重排。</li></ul><p><strong>读内存屏障（Load Memory Barrier）</strong>：在指令前插入Load Barrier，可以让高速缓存中的数据失效，强制重新从主内存中加载数据。</p><ul><li>强制读取主内存内存，让CPU缓存与主内存数据保存一致，避免了缓存导致的一致性问题。</li></ul><h1 id="【思考】"><a href="#【思考】" class="headerlink" title="【思考】"></a>【思考】</h1><p>三级缓存决定CPU性能？还有什么决定呢？</p><h1 id="【行动-反馈】"><a href="#【行动-反馈】" class="headerlink" title="【行动/反馈】"></a>【行动/反馈】</h1><p>查下问题：</p><ul><li>很多，比如主频、核心数、超线程技术、支持的指令集、前端总线等</li></ul><h1 id="【钩子】"><a href="#【钩子】" class="headerlink" title="【钩子】"></a>【钩子】</h1><p>内存屏障 CPU缓存</p><h1 id="【出处】"><a href="#【出处】" class="headerlink" title="【出处】"></a>【出处】</h1><p>Java高级开发工程师-内存屏障和CPU缓存</p><h1 id="【时间】"><a href="#【时间】" class="headerlink" title="【时间】"></a>【时间】</h1><p>2018-12-25</p><hr><p>若涉及版权问题,请及时联系作者删除。</p><blockquote><p>更多精彩文章请关注</p><ul><li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li><li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li><li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;【主题】&quot;&gt;&lt;a href=&quot;#【主题】&quot; class=&quot;headerlink&quot; title=&quot;【主题】&quot;&gt;&lt;/a&gt;【主题】&lt;/h1&gt;&lt;p&gt;内存屏障和CPU缓存&lt;/p&gt;
+&lt;h1 id=&quot;【信息】&quot;&gt;&lt;a href=&quot;#【信息】&quot; class=&quot;headerlink
+      
+    
+    </summary>
+    
+      <category term="Java高级开发工程师微专业" scheme="https://xianhuali.gitee.io/categories/Java%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BE%AE%E4%B8%93%E4%B8%9A/"/>
+    
+    
+      <category term="高性能编程专题" scheme="https://xianhuali.gitee.io/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B%E4%B8%93%E9%A2%98/"/>
+    
+      <category term="多线程并发编程" scheme="https://xianhuali.gitee.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="Java基础" scheme="https://xianhuali.gitee.io/tags/Java%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JSE-1.1.3 线程中止</title>
+    <link href="https://xianhuali.gitee.io/2019/01/06/JSE-1-1-3-%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%AD%A2/"/>
+    <id>https://xianhuali.gitee.io/2019/01/06/JSE-1-1-3-线程中止/</id>
+    <published>2019-01-06T04:02:16.000Z</published>
+    <updated>2019-01-06T04:02:52.528Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="【主题】"><a href="#【主题】" class="headerlink" title="【主题】"></a>【主题】</h1><p>线程中止</p><h1 id="【信息】"><a href="#【信息】" class="headerlink" title="【信息】"></a>【信息】</h1><h2 id="不正确的线程中止-Stop"><a href="#不正确的线程中止-Stop" class="headerlink" title="不正确的线程中止-Stop"></a>不正确的线程中止-Stop</h2><ul><li>Stop：中止线程，并且清除监控器锁的信息，但是可能导致线程安全问题，JDK不建议用。</li><li>Destroy：JDK未实现</li></ul><h2 id="正确的线程中止-interrupt"><a href="#正确的线程中止-interrupt" class="headerlink" title="正确的线程中止-interrupt"></a>正确的线程中止-interrupt</h2><p>如果目标线程在调用Object class的wait()、wait(long)或wait(long,int)方法、join()、join(long)、join(long,int)、sleep(long)或sleep(long,int)方法时被阻塞。那么interrupt会生效，该线程的中断状态将被清除，抛出InterruptedException异常。</p><p>如果目标线程是被I/O或NIO中的Channel所阻塞，同样，I/O操作会被中断或者返回特殊异常值。达到终止线程的目的。</p><p>如果以上条件都不满足，则会设置此线程的中断状态。</p><p>synchronize保证原子性</p><p>所见即所得</p><h2 id="正确的线程中止-标志位"><a href="#正确的线程中止-标志位" class="headerlink" title="正确的线程中止-标志位"></a>正确的线程中止-标志位</h2><p>代码需要循环执行时</p><p>代码逻辑中，增加一个判断，用来控制线程执行的中止。</p><h1 id="【思考】"><a href="#【思考】" class="headerlink" title="【思考】"></a>【思考】</h1><p>什么地方会用到线程中止？有什么用？</p><h1 id="【行动-反馈】"><a href="#【行动-反馈】" class="headerlink" title="【行动/反馈】"></a>【行动/反馈】</h1><p>查下问题：</p><ul><li>什么是中断？<br>在Java中没有办法立即停止一条线程，然而停止线程却显得尤为重要，如取消一个耗时操作。因此，Java提供了一种用于停止线程的机制——中断。<br><a href="https://www.zhihu.com/question/41048032" target="_blank" rel="noopener">Java里一个线程调用了Thread.interrupt()到底意味着什么？</a></li></ul><h1 id="【钩子】"><a href="#【钩子】" class="headerlink" title="【钩子】"></a>【钩子】</h1><p>线程中止</p><h1 id="【出处】"><a href="#【出处】" class="headerlink" title="【出处】"></a>【出处】</h1><p>Java高级开发工程师-线程中止</p><h1 id="【时间】"><a href="#【时间】" class="headerlink" title="【时间】"></a>【时间】</h1><p>2018-12-24</p><hr><p>若涉及版权问题,请及时联系作者删除。</p><blockquote><p>更多精彩文章请关注</p><ul><li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li><li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li><li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;【主题】&quot;&gt;&lt;a href=&quot;#【主题】&quot; class=&quot;headerlink&quot; title=&quot;【主题】&quot;&gt;&lt;/a&gt;【主题】&lt;/h1&gt;&lt;p&gt;线程中止&lt;/p&gt;
+&lt;h1 id=&quot;【信息】&quot;&gt;&lt;a href=&quot;#【信息】&quot; class=&quot;headerlink&quot; titl
+      
+    
+    </summary>
+    
+      <category term="Java高级开发工程师微专业" scheme="https://xianhuali.gitee.io/categories/Java%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BE%AE%E4%B8%93%E4%B8%9A/"/>
+    
+    
+      <category term="高性能编程专题" scheme="https://xianhuali.gitee.io/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B%E4%B8%93%E9%A2%98/"/>
+    
+      <category term="多线程并发编程" scheme="https://xianhuali.gitee.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="Java基础" scheme="https://xianhuali.gitee.io/tags/Java%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JSE-1.1.2 线程状态</title>
+    <link href="https://xianhuali.gitee.io/2019/01/06/JSE-1-1-2-%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81/"/>
+    <id>https://xianhuali.gitee.io/2019/01/06/JSE-1-1-2-线程状态/</id>
+    <published>2019-01-06T04:01:13.000Z</published>
+    <updated>2019-01-06T04:01:50.095Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="【主题】"><a href="#【主题】" class="headerlink" title="【主题】"></a>【主题】</h1><p>线程状态</p><h1 id="【信息】"><a href="#【信息】" class="headerlink" title="【信息】"></a>【信息】</h1><h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p>6个状态定义：java.lang.Thread.State</p><ul><li>New：尚未启动的线程</li><li>Runnable：可运行的线程，等待CPU调度</li><li>Blocked：线程阻塞等待监视器锁定的线程状态，synchronized同步</li><li>Waiting：等待线程。不带超时的方式：Object.ward、Thread.join、LockSupport.park</li><li>Timed Waiting：具有制定等待时间的等待线程的线程状态。带超时的方式：Thread.sleep、Object.wair、Thread.join、LockSupport.parkNanos、LockSupport.parkUtil</li><li>Terminated：终止线程的状态。线程正常完成执行或出现异常。</li></ul><h1 id="【思考】"><a href="#【思考】" class="headerlink" title="【思考】"></a>【思考】</h1><p>线程等待过程中会不会占用cup和内存？消耗资源？</p><h1 id="【行动-反馈】"><a href="#【行动-反馈】" class="headerlink" title="【行动/反馈】"></a>【行动/反馈】</h1><p>查上面的问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">必须的，代码中就是一坨粑粑，也要占内存，不管是代码内存，还是堆栈内存等。</span><br><span class="line">线程SLEEP后，如果不占用内存，怎么能恢复之前的状态？就好比人睡觉，就不消耗能量了？</span><br><span class="line">线程占用内存会有：代码内存，堆栈内存，堆内存</span><br></pre></td></tr></table></figure></p><h1 id="【钩子】"><a href="#【钩子】" class="headerlink" title="【钩子】"></a>【钩子】</h1><p>线程状态</p><h1 id="【出处】"><a href="#【出处】" class="headerlink" title="【出处】"></a>【出处】</h1><p>Java高级开发工程师-线程状态</p><h1 id="【时间】"><a href="#【时间】" class="headerlink" title="【时间】"></a>【时间】</h1><p>2018-12-23</p><hr><p>若涉及版权问题,请及时联系作者删除。</p><blockquote><p>更多精彩文章请关注</p><ul><li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li><li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li><li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;【主题】&quot;&gt;&lt;a href=&quot;#【主题】&quot; class=&quot;headerlink&quot; title=&quot;【主题】&quot;&gt;&lt;/a&gt;【主题】&lt;/h1&gt;&lt;p&gt;线程状态&lt;/p&gt;
+&lt;h1 id=&quot;【信息】&quot;&gt;&lt;a href=&quot;#【信息】&quot; class=&quot;headerlink&quot; titl
+      
+    
+    </summary>
+    
+      <category term="Java高级开发工程师微专业" scheme="https://xianhuali.gitee.io/categories/Java%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BE%AE%E4%B8%93%E4%B8%9A/"/>
+    
+    
+      <category term="高性能编程专题" scheme="https://xianhuali.gitee.io/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B%E4%B8%93%E9%A2%98/"/>
+    
+      <category term="多线程并发编程" scheme="https://xianhuali.gitee.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="Java基础" scheme="https://xianhuali.gitee.io/tags/Java%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
   
   <entry>
     <title>JSE-1.1.1 JAVA程序运行原理分析</title>
