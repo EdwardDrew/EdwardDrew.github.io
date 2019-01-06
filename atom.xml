@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xianhuali.gitee.io/"/>
-  <updated>2019-01-06T03:42:34.180Z</updated>
+  <updated>2019-01-06T03:47:44.092Z</updated>
   <id>https://xianhuali.gitee.io/</id>
   
   <author>
@@ -17,11 +17,77 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>JSE-1.1.1 JAVA程序运行原理分析</title>
+    <link href="https://xianhuali.gitee.io/2019/01/06/JSE-1-1-1-JAVA%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/"/>
+    <id>https://xianhuali.gitee.io/2019/01/06/JSE-1-1-1-JAVA程序运行原理分析/</id>
+    <published>2019-01-06T03:47:43.000Z</published>
+    <updated>2019-01-06T03:47:44.092Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>JSE-开学典礼</title>
+    <link href="https://xianhuali.gitee.io/2019/01/06/JSE-%E5%BC%80%E5%AD%A6%E5%85%B8%E7%A4%BC/"/>
+    <id>https://xianhuali.gitee.io/2019/01/06/JSE-开学典礼/</id>
+    <published>2019-01-06T03:46:31.000Z</published>
+    <updated>2019-01-06T03:46:58.153Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="【主题】"><a href="#【主题】" class="headerlink" title="【主题】"></a>【主题】</h1><p>开学典礼：班级规范、学习方法</p><h1 id="【信息】"><a href="#【信息】" class="headerlink" title="【信息】"></a>【信息】</h1><h2 id="01-我们拥有什么？"><a href="#01-我们拥有什么？" class="headerlink" title="01 我们拥有什么？"></a>01 我们拥有什么？</h2><ul><li>预习资料</li><li>学习计划</li><li>学员手册</li></ul><p>公开课：营销，只是为了让大家进入学习状态。以正式课为主</p><p>四大明星讲师：Tony-Allen-Mike-Alex</p><ul><li>英文名为了看英文原版书籍</li></ul><p>一切问题都可以找班主任-余老师</p><h2 id="02-高效学习方法分享"><a href="#02-高效学习方法分享" class="headerlink" title="02 高效学习方法分享"></a>02 高效学习方法分享</h2><ul><li>间歇性关注：高度集中注意力</li><li>定期输出</li></ul><h3 id="间歇性关注"><a href="#间歇性关注" class="headerlink" title="间歇性关注"></a>间歇性关注</h3><p>why?：希望同学们能在学习过程中达成“心流体验”-&gt;提升学习幸福感-&gt;高效吸收内容</p><p>how？</p><ul><li>善于利用物品和动作营造仪式感：笔记本、坐姿……</li><li>对“专注”中间的“间歇”保持积极的心态</li><li>设立具象化的目标，通过数字进行量化</li><li>学习过程中对自己要有奖惩机制</li></ul><h3 id="定期输出"><a href="#定期输出" class="headerlink" title="定期输出"></a>定期输出</h3><p>why：<br>匮乏感（input）-&gt;满足感-&gt;（output：代码，博客，讨论区主题帖……）快感<br>-&gt;足够的反馈-&gt;匮乏感</p><p>how：</p><ul><li>作业提交：课内作业、课外作业</li><li>博客分享</li></ul><h2 id="03班级管理规范"><a href="#03班级管理规范" class="headerlink" title="03班级管理规范"></a>03班级管理规范</h2><p>1、定期查看群公告内容</p><p>提问规范：</p><ul><li>wen端讨论区答疑：帖子</li><li>qq群内提问格式：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- QQ群技术类问题可@授课老师</span><br><span class="line">- 一般24h内回复，紧急找班主任</span><br><span class="line"></span><br><span class="line">**作业：讨论区【我学java这些年】**</span><br><span class="line"></span><br><span class="line">## 如何平衡工作/学习/生活？</span><br><span class="line">学习和工作的提升带来生活上的提升</span><br><span class="line"></span><br><span class="line">时间有限，价值无限</span><br><span class="line"></span><br><span class="line">如何平衡？</span><br><span class="line">### 时间管理</span><br><span class="line">- 在有限的时间上做管理</span><br><span class="line">&gt;新时间四象限</span><br><span class="line"></span><br><span class="line">### 能力升级</span><br><span class="line">- 在有限的事情上做提升</span><br><span class="line">&gt; 职业能力晋升图</span><br><span class="line"></span><br><span class="line">关于x-6的问题：</span><br></pre></td></tr></table></figure></li></ul><p>1+1+1+1+1+1=X<br>X&gt;6<br>X-6=?<br><code>`</code><br>每个人的X都不一样：知识点整合？成长？</p><p>对于自己而言，X-6代表突破</p><h1 id="【思考】"><a href="#【思考】" class="headerlink" title="【思考】"></a>【思考】</h1><ul><li>弟子不必不如师</li><li>一段时间高度集中注意力学习：番茄工作法</li><li>定期输出：代码、博客</li><li>如何平衡时间？每个人都不一样，找到自己的时间管理</li></ul><h1 id="【行动-反馈】"><a href="#【行动-反馈】" class="headerlink" title="【行动/反馈】"></a>【行动/反馈】</h1><ul><li>时间管理</li><li>设立目标</li></ul><h1 id="【钩子】"><a href="#【钩子】" class="headerlink" title="【钩子】"></a>【钩子】</h1><p>开学典礼 学习方法</p><h1 id="【出处】"><a href="#【出处】" class="headerlink" title="【出处】"></a>【出处】</h1><p>Java高级开发工程师-开学典礼</p><h1 id="【时间】"><a href="#【时间】" class="headerlink" title="【时间】"></a>【时间】</h1><p>2018-12-22</p><hr><p>若涉及版权问题,请及时联系作者删除。</p><blockquote><p>更多精彩文章请关注</p><ul><li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li><li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li><li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;【主题】&quot;&gt;&lt;a href=&quot;#【主题】&quot; class=&quot;headerlink&quot; title=&quot;【主题】&quot;&gt;&lt;/a&gt;【主题】&lt;/h1&gt;&lt;p&gt;开学典礼：班级规范、学习方法&lt;/p&gt;
+&lt;h1 id=&quot;【信息】&quot;&gt;&lt;a href=&quot;#【信息】&quot; class=&quot;header
+      
+    
+    </summary>
+    
+      <category term="Java高级开发工程师微专业" scheme="https://xianhuali.gitee.io/categories/Java%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BE%AE%E4%B8%93%E4%B8%9A/"/>
+    
+    
+      <category term="开学准备" scheme="https://xianhuali.gitee.io/tags/%E5%BC%80%E5%AD%A6%E5%87%86%E5%A4%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JSE-班级预备课2</title>
+    <link href="https://xianhuali.gitee.io/2019/01/06/JSE-%E7%8F%AD%E7%BA%A7%E9%A2%84%E5%A4%87%E8%AF%BE2/"/>
+    <id>https://xianhuali.gitee.io/2019/01/06/JSE-班级预备课2/</id>
+    <published>2019-01-06T03:45:36.000Z</published>
+    <updated>2019-01-06T03:46:08.653Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="【主题】"><a href="#【主题】" class="headerlink" title="【主题】"></a>【主题】</h1><p>技术大神是怎么练成的？</p><h1 id="【信息】"><a href="#【信息】" class="headerlink" title="【信息】"></a>【信息】</h1><p>环境影响、机会</p><h2 id="01明星产品预分析"><a href="#01明星产品预分析" class="headerlink" title="01明星产品预分析"></a>01明星产品预分析</h2><ul><li>云课堂微服务机构</li><li>云课堂线上故障案例</li></ul><p>眼界，项目大，稳定</p><h2 id="02技术方案落地实际业务"><a href="#02技术方案落地实际业务" class="headerlink" title="02技术方案落地实际业务"></a>02技术方案落地实际业务</h2><ol><li>提出技术方案</li><li>开发规范化</li><li>引入项目管理</li></ol><p><strong>技术并不是最复杂的，人和事及关系才是麻烦</strong></p><p><strong>当前公司的所有技术我有没有全学会了？（跳槽前）有哪些产品？哪些技术？哪些部门（偷师）</strong></p><h2 id="03-Gitlab的高效使用"><a href="#03-Gitlab的高效使用" class="headerlink" title="03 Gitlab的高效使用"></a>03 Gitlab的高效使用</h2><p>查资料</p><ul><li>开源社区：github、gitlab、gitee</li><li>项目的issue</li></ul><h2 id="04技术博客的写作方法"><a href="#04技术博客的写作方法" class="headerlink" title="04技术博客的写作方法"></a>04技术博客的写作方法</h2><p>写博客是对自己的投资</p><p>写博客有套路：</p><ul><li><strong>博客书写-技术理论型</strong>：掌握3W1H分析法（what、where、why、how）</li><li><strong>实操类技巧</strong>：三部曲-步骤+演示+总结</li></ul><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul><li>频率：一周2-3篇，正好一次总结</li><li>内容：以学习内容为主</li><li>平台：开放平台为主，再转发到自己的个人博客/公众号</li></ul><p>问题：</p><ul><li>oracle普通使用不收费</li><li>Linux命令：菜鸟教程</li><li>学习前需要了解SSM框架</li></ul><h1 id="【思考】"><a href="#【思考】" class="headerlink" title="【思考】"></a>【思考】</h1><ul><li>环境影响个人，机会造就人才</li><li>眼界随着你的接触而变广</li><li>写博客是对自己的投资</li><li>跳槽前尽量了解当前公司的技术和现状</li></ul><h1 id="【行动-反馈】"><a href="#【行动-反馈】" class="headerlink" title="【行动/反馈】"></a>【行动/反馈】</h1><ul><li>坚持每周写博客</li><li>做好当前公司的工作，主动去了解</li></ul><h1 id="【钩子】"><a href="#【钩子】" class="headerlink" title="【钩子】"></a>【钩子】</h1><p>技术大神    技术架构    写博客</p><h1 id="【出处】"><a href="#【出处】" class="headerlink" title="【出处】"></a>【出处】</h1><p>Java高级开发工程师-班级预备课2</p><h1 id="【时间】"><a href="#【时间】" class="headerlink" title="【时间】"></a>【时间】</h1><p>2018-12-15、16</p><hr><p>若涉及版权问题,请及时联系作者删除。</p><blockquote><p>更多精彩文章请关注</p><ul><li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li><li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li><li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;【主题】&quot;&gt;&lt;a href=&quot;#【主题】&quot; class=&quot;headerlink&quot; title=&quot;【主题】&quot;&gt;&lt;/a&gt;【主题】&lt;/h1&gt;&lt;p&gt;技术大神是怎么练成的？&lt;/p&gt;
+&lt;h1 id=&quot;【信息】&quot;&gt;&lt;a href=&quot;#【信息】&quot; class=&quot;headerlin
+      
+    
+    </summary>
+    
+      <category term="Java高级开发工程师微专业" scheme="https://xianhuali.gitee.io/categories/Java%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BE%AE%E4%B8%93%E4%B8%9A/"/>
+    
+    
+      <category term="开学准备" scheme="https://xianhuali.gitee.io/tags/%E5%BC%80%E5%AD%A6%E5%87%86%E5%A4%87/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JSE-班级预备课1</title>
     <link href="https://xianhuali.gitee.io/2019/01/06/JSE-%E7%8F%AD%E7%BA%A7%E9%A2%84%E5%A4%87%E8%AF%BE1/"/>
     <id>https://xianhuali.gitee.io/2019/01/06/JSE-班级预备课1/</id>
     <published>2019-01-06T03:36:37.000Z</published>
-    <updated>2019-01-06T03:42:34.180Z</updated>
+    <updated>2019-01-06T03:42:34.183Z</updated>
     
     <content type="html"><![CDATA[<h1 id="【主题】"><a href="#【主题】" class="headerlink" title="【主题】"></a>【主题】</h1><p>课程体系梳理与学习的注意点</p><h1 id="【信息】"><a href="#【信息】" class="headerlink" title="【信息】"></a>【信息】</h1><p><strong>课程大纲</strong>：要熟悉</p><ul><li>要做<strong>T字型人才</strong>，竖要比横长（竖：领域的深度，横：领域的宽度）</li></ul><h2 id="1、干货中的干货："><a href="#1、干货中的干货：" class="headerlink" title="1、干货中的干货："></a>1、<strong>干货中的干货</strong>：</h2><p>提高逻辑思维，养成线性思维（两个或多个概念，像一条线串起来）</p><ul><li><strong>演绎推导法</strong>：因果推理</li><li><strong>归纳总结法</strong>：收集相关信息，所可能出现问题的信息，总结发现对吧，找出相同点和不同点</li><li><strong>类比法</strong>：能用例子类比时，说明你已经掌握了这个技术</li></ul><h2 id="2、高效互动"><a href="#2、高效互动" class="headerlink" title="2、高效互动"></a>2、高效互动</h2><p><strong>《提问的智慧》（<a href="https://github.com/EdwardDrew/How-To-Ask-Questions-The-Smart-Way" target="_blank" rel="noopener">How-To-Ask-Questions</a>）</strong></p><ul><li>优先在群里提问</li></ul><h2 id="3、学习时间安排"><a href="#3、学习时间安排" class="headerlink" title="3、学习时间安排"></a>3、学习时间安排</h2><p><strong>定期加班型</strong>：每周做一次学习总结，形成自己的学习周期</p><p><strong>基础不好型</strong>：每个示例都坚持亲自敲一遍，勤能补拙</p><h2 id="4、作业考核"><a href="#4、作业考核" class="headerlink" title="4、作业考核"></a>4、作业考核</h2><p>考核方式：</p><ul><li>试卷型</li><li>开放性问题</li><li>实操型</li></ul><p><strong>《你要配得上自己所受的苦》-卢苏伟</strong></p><ul><li>做事情，没有搏命的精神，全力以赴地投入，是不可能成功的。人性是充满惰性的……</li><li>多打鸡血，偶尔打鸡血。人生不能没有鸡血</li></ul><p><strong>个人博客</strong>：人生苦短，文字流传。</p><ul><li>表达、总结能力的提升，这行业往上走必备，靠文字吃饭</li></ul><h1 id="【思考】"><a href="#【思考】" class="headerlink" title="【思考】"></a>【思考】</h1><ul><li>课程体系很重要，要在自己脑海中形成自己的课程体系。</li><li>学习方法不同，提高逻辑思维是一样的</li><li>输出是最好的学习方法</li></ul><h1 id="【行动-反馈】"><a href="#【行动-反馈】" class="headerlink" title="【行动/反馈】"></a>【行动/反馈】</h1><ul><li>课程大纲多看，联系自己的知识点梳理自己的知识体系</li><li>注意逻辑思维的锻炼，3个方法</li><li><del>看完《提问的智慧》</del></li><li>每周做一次总结</li><li>看下《你要配得上自己所受的苦》</li><li><del>写个人博客</del></li></ul><h1 id="【钩子】"><a href="#【钩子】" class="headerlink" title="【钩子】"></a>【钩子】</h1><p>学习方法 逻辑思维 java高级开发工程师课程体系</p><h1 id="【出处】"><a href="#【出处】" class="headerlink" title="【出处】"></a>【出处】</h1><p>Java高级开发工程师-班级预备课</p><h1 id="【时间】"><a href="#【时间】" class="headerlink" title="【时间】"></a>【时间】</h1><p>2018-12-01</p><hr><p>若涉及版权问题,请及时联系作者删除。</p><blockquote><p>更多精彩文章请关注</p><ul><li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li><li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li><li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li></ul></blockquote>]]></content>
     
