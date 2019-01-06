@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xianhuali.gitee.io/"/>
-  <updated>2018-12-30T14:09:49.030Z</updated>
+  <updated>2019-01-06T03:29:03.784Z</updated>
   <id>https://xianhuali.gitee.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次发版过程中sb错误的思考与总结</title>
+    <link href="https://xianhuali.gitee.io/2019/01/06/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%91%E7%89%88%E8%BF%87%E7%A8%8B%E4%B8%ADsb%E9%94%99%E8%AF%AF%E7%9A%84%E6%80%9D%E8%80%83%E4%B8%8E%E6%80%BB%E7%BB%93/"/>
+    <id>https://xianhuali.gitee.io/2019/01/06/记一次发版过程中sb错误的思考与总结/</id>
+    <published>2019-01-06T03:28:15.000Z</published>
+    <updated>2019-01-06T03:29:03.784Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>昨天晚上9点多的时候发版小程序（前端RazSchool目录）和商城（rmall目录），<strong>前端资源</strong>和后端代码都发了，测了下，发现支付不了，前端调起不了微信支付。解决这个问题用了2个小时左右，最终发现是因为前端资源没发的sb问题（恨不得给自己两个大耳刮子）……</p><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>出了问题，当然是查找原因啦。首先支付时安卓微信端直接没有提示，iOS微信提示<code>调用支付JSAPI缺少参数:appId</code>，嗯，这时候怀疑是前端的问题了，是不是前端代码有问题？让前端同事检查了一遍，没问题？难道是我后端问题？好吧！</p><ul><li>看<strong>看日志</strong>咯，没有报错日志。</li><li><strong>抓包</strong>看预支付接口（改版了的）返回的数据，没有问题</li><li>然后前端同事电脑<strong>直接访问他本地电脑</strong>的前端资源，接口用线上的，发现竟然可以……那就说明后端接口没问题了（<strong>排除法</strong>）！好了，说明问题出现在前端</li></ul><p>因为我们的支付链接pay.xxx.com用nginx转发到cdn加速的static3.xxx.com，<strong>怀疑是不是缓存问题</strong>，好吧，<strong>加版本号试试</strong>（?v=20190105），还是不行?我再加（?v=1247384683xx00），各种加还是不行。</p><p>这样弄了许久之后，我就<strong>怀疑是不是前端资源没发呢</strong>？然后叫前端同事再重新上传到gitlab，我再拉代码，然后帮他打包（<strong>RazSchool文件目录</strong>）上传到服务器。重发了之后还是不行？我靠了个DJ！！！这时候就懵逼了，到底前端问题出现在哪里？缓存还是没刷新成功？？？</p><blockquote><p>（这时候到了晚上，工作了一天，基本脑子有点模糊，不够用了！！！）</p></blockquote><p>我<strong>自以为是地认为就是缓存没刷新的问题</strong>，然后叫大佬（只有大佬才有操作服务器和发版的权限）改下nginx，把pay.xxx.com转发到源站static.xxx.com去，然后大佬一通操作（改nginx转发，重启nginx）后，再试试还是不行，抓包发现还是转发到static3.xxx.com的cdn加速链接？（why？？？这个有待大佬研究）</p><p>在大佬操作过程中，我在旁边看着他噼里啪啦，一不小心在看到nginx转发的链接中有<code>rmall</code>这个单词，这时我脑海中突然响起了一首歌曲—<strong>是他  是他  就是他</strong>……好像我每次打包的文件都是RazSchoo目录的，而支付商城的前端资源好像是放在rmall目录下的，嘶~md，神经大条了！！！不会就是<strong>我发错资源了</strong>吧，然后我小心翼翼地对大家说：我好像忘发了，发错文件了。。。</p><p>最后打包<strong>rmall</strong>，嗯，看到这个文件夹怎么感觉这么陌生呢？？？重新上传之后，<strong>果然可以了</strong>！！！虽然访问过的链接还是不行，因为链接还是static3有缓存，加下版本号就行了。</p><p><strong>为了避免缓存问题</strong>，我叫大佬<strong>把支付链接的首页直接转发到源站static去</strong>，然后再改下微信公众号菜单里的链接（加版本号），好了，perfect（你个鬼），可以下班了。（这时候已经是11点多了）。马丹，这么sb的问题，竟然弄了两个小时，耽误了大家这么多的时间，本屌感觉有点心虚，看来少不了请大家喝茶压压惊了！</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul><li><strong>晚上最好不要发版</strong>，要发也要等待状态良好的时候再发（脑子清醒的时候，我觉得自己早上状态挺不错的）。一是晚上状态不好很容易出问题，二是下班之后出了问题更麻烦。</li><li>如果发版的时候发的是别人的东西，一定要让他先过目，<strong>最好让他在旁边看着你操作</strong>，这样就知道你发的东西到底是不是他想要发的。</li><li>这种问题，<strong>细心一点</strong>应该可以避免，比如拉取文件的时候看清楚是哪些文件要发的，询问清楚再发</li><li><strong>出了问题不要急，先静下心来，一步步排除问题</strong>，总会找到答案的，只是时间问题。</li></ul><hr><blockquote><p>更多精彩文章请关注</p><ul><li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li><li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li><li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;昨天晚上9点多的时候发版小程序（前端RazSchool目录）和商城（rmall目录），&lt;strong&gt;前端资源&lt;/strong&gt;和后端代码都
+      
+    
+    </summary>
+    
+      <category term="随笔" scheme="https://xianhuali.gitee.io/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="https://xianhuali.gitee.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
   
   <entry>
     <title>记参加2018广州GDG嘉年华的感想</title>
@@ -163,9 +188,9 @@
       <category term="Java高级开发工程师直播公开课" scheme="https://xianhuali.gitee.io/categories/Java%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9B%B4%E6%92%AD%E5%85%AC%E5%BC%80%E8%AF%BE/"/>
     
     
-      <category term="设计模式" scheme="https://xianhuali.gitee.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
       <category term="Spring" scheme="https://xianhuali.gitee.io/tags/Spring/"/>
+    
+      <category term="设计模式" scheme="https://xianhuali.gitee.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
