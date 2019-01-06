@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xianhuali.gitee.io/"/>
-  <updated>2019-01-06T03:47:44.092Z</updated>
+  <updated>2019-01-06T03:58:07.392Z</updated>
   <id>https://xianhuali.gitee.io/</id>
   
   <author>
@@ -21,12 +21,28 @@
     <link href="https://xianhuali.gitee.io/2019/01/06/JSE-1-1-1-JAVA%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/"/>
     <id>https://xianhuali.gitee.io/2019/01/06/JSE-1-1-1-JAVA程序运行原理分析/</id>
     <published>2019-01-06T03:47:43.000Z</published>
-    <updated>2019-01-06T03:47:44.092Z</updated>
+    <updated>2019-01-06T03:58:07.392Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="【主题】"><a href="#【主题】" class="headerlink" title="【主题】"></a>【主题】</h1><p>JAVA程序运行原理分析</p><h1 id="【信息】"><a href="#【信息】" class="headerlink" title="【信息】"></a>【信息】</h1><h2 id="class文件内容"><a href="#class文件内容" class="headerlink" title="class文件内容"></a>class文件内容</h2><p>字节码，开头包含一个0xcafebabe(16进制)特殊的一个标志</p><blockquote><p>魔数cafebabe来源可参考<a href="https://en.wikipedia.org/wiki/Java_class_file" target="_blank" rel="noopener">WIKI百科: Java_class_file</a></p></blockquote><p>class文件可用二进制软件查看，比如ultraedit，我用notepad++的ansi转hex看不出来开头的魔数，应该是原来class文件是windows1252编码问题。</p><h2 id="JVM运行时数据区"><a href="#JVM运行时数据区" class="headerlink" title="JVM运行时数据区"></a>JVM运行时数据区</h2><p><strong>线程共享</strong>（所有线程能访问这块内存数据，随虚拟机或者GC而创建和销毁）部分：</p><ul><li>方法区：存放class的一些信息，类信息、常量、静态变量、编译后的代码等数据</li><li>堆内存：对象实例的存放，垃圾回收主要管理。细分为：老年代、新生代（Eden、From Survivor、To Survivor）。如果满了oom。<blockquote><p>最近看到一篇文章-<a href="https://www.cnblogs.com/bhlsheji/p/5330045.html" target="_blank" rel="noopener">Linux与JVM的内存关系分析</a>，分析内存泄漏问题，应该能更好地理解堆内存吧。</p></blockquote></li></ul><p><strong>线程独占</strong>（每个线程都会有它独立的空间，随线程生命周期而创建和销毁）部分：</p><ul><li>虚拟机栈</li><li>本地方法栈</li><li>程序计数器</li></ul><p>不用深入了解底层，有兴趣自行去了解。<br>底层：执行引擎-&gt;本地库接口-&gt;本地方法库</p><h2 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h2><p>概念：每个线程都在这个空间有一个私有的空间</p><ul><li>线程栈由多个栈帧（Stack Frame）组成</li><li>一个线程会执行一个以上方法，一个方法对应一个栈帧</li><li>栈帧包含：局部变量表、操作数栈、动态链接、方法返回地址、附加信息等。</li><li>栈内存默认最大是1M，超出则抛出StackOverflowError</li></ul><h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>和虚拟机栈类似，只是执行的方法不同。虚拟机栈是为虚拟机执行JAVA方法而准备的，本地方法栈是为虚拟机使用Native本地方法而准备的。</p><p>虚拟机规范没有规定具体的实现</p><h2 id="程序计数器-Program-Counter-Register"><a href="#程序计数器-Program-Counter-Register" class="headerlink" title="程序计数器(Program Counter Register)"></a>程序计数器(Program Counter Register)</h2><p>记录<strong>当前线程执行字节码的位置</strong>，存储的是字节码指令地址，如果执行Native方法，则计数器为空。</p><h2 id="查看class文件内容"><a href="#查看class文件内容" class="headerlink" title="查看class文件内容"></a>查看class文件内容</h2><p>javap -v Demo1.class&gt;Demo1.txt</p><blockquote><p>输出所有的class信息到Demo1.txt</p></blockquote><h3 id="class内容-版本号-访问控制"><a href="#class内容-版本号-访问控制" class="headerlink" title="class内容-版本号/访问控制"></a>class内容-版本号/访问控制</h3><p><code>major version: 52</code>，版本号规则：JDK5，6，7，8分别对应49，50，51，52</p><p>访问标志表要记住</p><h3 id="class内容-常量池"><a href="#class内容-常量池" class="headerlink" title="class内容-常量池"></a>class内容-常量池</h3><p>跟字符串常量池不一样，这个是编译之后类里面包含的一些静态常量，比如方法名称</p><h3 id="class内容-构造方法"><a href="#class内容-构造方法" class="headerlink" title="class内容-构造方法"></a>class内容-构造方法</h3><p>没有定义构造函数时，会有隐式的无参构造函数</p><h3 id="class内容-程序入口main方法"><a href="#class内容-程序入口main方法" class="headerlink" title="class内容-程序入口main方法"></a>class内容-程序入口main方法</h3><p><code>stack=3, locals=4, args_size=1</code>本地变量数量，参数数量，方法对应栈帧中操作数栈的深度。</p><p>javap翻译出来的是操作符，class文件内存储的是指令码。</p><h3 id="程序完整运行分析（一）"><a href="#程序完整运行分析（一）" class="headerlink" title="程序完整运行分析（一）"></a>程序完整运行分析（一）</h3><p>加载信息到方法区，运行时常量池：字符串常量</p><p>HotSpot虚拟机：</p><ul><li>1.7和之前称为永久代</li><li>1.8开始称为元数据空间</li></ul><h3 id="程序完整运行分析（二）"><a href="#程序完整运行分析（二）" class="headerlink" title="程序完整运行分析（二）"></a>程序完整运行分析（二）</h3><p>JVM创建线程来执行代码，在虚拟机栈、程序计数器内存区域中创建线程独占的空间。</p><ul><li>虚拟机栈：Thread（栈帧）</li><li>程序计数器：Thread执行位置-字节码指令地址</li></ul><h3 id="程序完整运行分析（三）"><a href="#程序完整运行分析（三）" class="headerlink" title="程序完整运行分析（三）"></a>程序完整运行分析（三）</h3><p>虚拟机栈：<br>main方法栈帧：</p><ul><li>本地变量表：赋值给变量</li><li>操作数栈：入栈和出栈</li></ul><p>程序计数器：当前线程执行位置</p><p>所谓的指令码执行，它就是对栈帧里面的本地变量表、操作数栈以及栈帧的一些信息进行不断的操作，以及多个栈帧交替执行，达到了程序运行的最终效果</p><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>JVM运行原理中更底层实现，针对不同的操作系统或者处理器，会有不同的实现-这也是Java能够实现“一处编写，处处运行”的原理</p><h1 id="【思考】"><a href="#【思考】" class="headerlink" title="【思考】"></a>【思考】</h1><p>详细讲解了JVM运行java代码的原理，知其然还要知其所以然。</p><ul><li>但是了解这些有什么用呢？</li></ul><h1 id="【行动-反馈】"><a href="#【行动-反馈】" class="headerlink" title="【行动/反馈】"></a>【行动/反馈】</h1><p>去百度查下思考的问题？</p><ul><li>性能优化：懂原理, 才能真正的对代码进行优化, 提升程序的性能和效率</li></ul><h1 id="【钩子】"><a href="#【钩子】" class="headerlink" title="【钩子】"></a>【钩子】</h1><p>java运行原理 jvm运行分析 class文件分析</p><h1 id="【出处】"><a href="#【出处】" class="headerlink" title="【出处】"></a>【出处】</h1><p>Java高级开发工程师-JAVA程序运行原理分析</p><h1 id="【时间】"><a href="#【时间】" class="headerlink" title="【时间】"></a>【时间】</h1><p>2018-12-22</p><hr><p>若涉及版权问题,请及时联系作者删除。</p><blockquote><p>更多精彩文章请关注</p><ul><li><a href="https://xianhuali.gitee.io/">个人博客：EdwardDrew</a></li><li><a href="https://www.jianshu.com/u/a233ef56efa2" target="_blank" rel="noopener">简书</a></li><li><a href="https://me.csdn.net/EdwardDrew" target="_blank" rel="noopener">CSDN</a></li></ul></blockquote>]]></content>
     
     <summary type="html">
     
+      
+      
+        &lt;h1 id=&quot;【主题】&quot;&gt;&lt;a href=&quot;#【主题】&quot; class=&quot;headerlink&quot; title=&quot;【主题】&quot;&gt;&lt;/a&gt;【主题】&lt;/h1&gt;&lt;p&gt;JAVA程序运行原理分析&lt;/p&gt;
+&lt;h1 id=&quot;【信息】&quot;&gt;&lt;a href=&quot;#【信息】&quot; class=&quot;headerli
+      
+    
     </summary>
     
+      <category term="Java高级开发工程师微专业" scheme="https://xianhuali.gitee.io/categories/Java%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BE%AE%E4%B8%93%E4%B8%9A/"/>
+    
+    
+      <category term="高性能编程专题" scheme="https://xianhuali.gitee.io/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BC%96%E7%A8%8B%E4%B8%93%E9%A2%98/"/>
+    
+      <category term="多线程并发编程" scheme="https://xianhuali.gitee.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="Java基础" scheme="https://xianhuali.gitee.io/tags/Java%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
